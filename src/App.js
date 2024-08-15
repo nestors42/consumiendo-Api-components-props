@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./components/Header";
+import { useEffect, useState } from "react";
+import CardsContainer from "./components/CardsContainer";
+import Paginacion from "./components/Paginacion";
 
 function App() {
+  const [personajes, setPersonajes] = useState([]);
+  const consumirApi = async () => {
+    const url = "https://rickandmortyapi.com/api/character";
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setPersonajes(data.results);
+      console.log(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    consumirApi();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Paginacion />
+      <CardsContainer personajes={personajes} />
+    </>
   );
 }
 
