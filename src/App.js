@@ -31,10 +31,20 @@ function App() {
     <>
       <Header />
       <Paginacion
-        paginaSiguiente={paginaSiguiente} siguiente = {info.next} anterior = {info.prev}
-        paginaAnterior={paginaAnterior} 
+        paginaSiguiente={paginaSiguiente}
+        siguiente={info.next}
+        anterior={info.prev}
+        paginaAnterior={paginaAnterior}
       />
-      <CardsContainer personajes={personajes} />
+      <div className="d-flex justify-content-center">
+        {personajes.length === 0 ? (
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        ) : (
+          <CardsContainer personajes={personajes} />
+        )}
+      </div>
     </>
   );
 }
