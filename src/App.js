@@ -6,24 +6,32 @@ import Paginacion from "./components/Paginacion";
 
 function App() {
   const [personajes, setPersonajes] = useState([]);
-  const consumirApi = async () => {
-    const url = "https://rickandmortyapi.com/api/character";
+  const [info, setInfo] = useState({})
+  const consumirApi = async (url) => {
     try {
       const res = await fetch(url);
       const data = await res.json();
       setPersonajes(data.results);
-      console.log(data.results);
+      setInfo(data.info);
     } catch (error) {
       console.log(error);
     }
   };
+  const paginaSiguiente = ()=>{
+    consumirApi(info.next)
+  }
+  const paginaAnterior = ()=>{
+    consumirApi(info.prev)
+  }
+
+
   useEffect(() => {
-    consumirApi();
+    consumirApi("https://rickandmortyapi.com/api/character");
   }, []);
   return (
     <>
       <Header />
-      <Paginacion />
+      <Paginacion paginaSiguiente= {paginaSiguiente} paginaAnterior={paginaAnterior} />
       <CardsContainer personajes={personajes} />
     </>
   );
