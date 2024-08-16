@@ -38,7 +38,7 @@ function App() {
       />
       <div className="d-flex justify-content-center">
         {personajes.length === 0 ? (
-          <div class="spinner-border" role="status">
+          <div class="spinner-border text-danger" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         ) : (
